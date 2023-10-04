@@ -3,17 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+using CloudIpspSDK;
+using CloudIpspSDK.Checkout;
+
 
 namespace AnimeWebShop
 {
@@ -23,6 +18,8 @@ namespace AnimeWebShop
     public partial class MainWindow : Window
     {
         AppDbContext _db;
+        private int _totalAmount = 0;
+        private int _totalPrice = 0;
         public MainWindow()
         {
             _db = new AppDbContext();
@@ -62,8 +59,42 @@ namespace AnimeWebShop
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            Item item = (Item)ItemsListBox.Items.CurrentItem;
-            CartInfoLabel.Content = item.Name;
+            
+           
+            Item item = (Item)ItemsListBox.Items[ItemsListBox.SelectedIndex];
+            _totalAmount++;
+            _totalPrice += item.Price;
+            CartInfoLabel.Content = "В вашей корзине есть товары";
+            CartAmountLabel.Content = $"Количество: {_totalAmount}шт";
+            CartPriceLabel.Content = $"Общая стоимость: {_totalPrice}$";
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if(CartPriceLabel.ToString() == "")
+            {
+                MessageBox.Show("Вы не добавили товары в корзину");
+                return;
+            }
+
+            Config.MerchantId = 1396424;
+            Config.SecretKey = "test";
+
+            var req = new CheckoutRequest
+            {
+                order_id = Guid.NewGuid().ToString("N"),
+                amount = _totalPrice * 100,
+                order_desc = "checkout json demo",
+                currency = "USD"
+            };
+            var resp = new Url().Post(req);
+
+            if (resp.Error == null)
+            {
+                string url = resp.checkout_url;
+                System.Diagnostics.Process.Start(url);
+            }
+
         }
     }
 }

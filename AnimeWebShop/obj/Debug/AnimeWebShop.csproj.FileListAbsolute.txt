@@ -78,3 +78,5 @@ F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\obj\Debug\AnimeWebShop.csproj.Co
 F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\obj\Debug\AnimeWebShop.csproj.CopyComplete
 F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\obj\Debug\AnimeWebShop.exe
 F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\obj\Debug\AnimeWebShop.pdb
+F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\bin\Debug\CloudIpspSDK.dll
+F:\Desktop\C#2\Course\AnimeWebShop\AnimeWebShop\bin\Debug\CloudIpspSDK.pdb

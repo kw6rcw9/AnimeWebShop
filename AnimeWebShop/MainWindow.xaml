@@ -21,12 +21,21 @@
         <StackPanel Grid.Column="1">
             <Label Content="Интернет магазин" Foreground="White" HorizontalAlignment="Center" Margin="30" FontSize="28" Style="{StaticResource MaterialDesignLabel}" FontWeight="Medium"/>
             <ScrollViewer Height="297" Width="482">
-                <ListBox Background="Transparent" x:Name="ItemsListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                   
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Height="300" Margin="0,10,10,10" HorizontalAlignment="Center" x:Name="ItemImage" Source="{Binding ImageSource}"/>
+                <ListBox  Background="Transparent" x:Name="ItemsListBox" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" 
+           BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                            <Style.Triggers>
+                                <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                    <Setter Property="IsSelected" Value="True"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                                <DataTemplate  >
+                                    <StackPanel Orientation="Vertical" >
+                                        <Image Height="300"  Margin="0,10,10,10" HorizontalAlignment="Center" x:Name="ItemImage" Source="{Binding ImageSource}"/>
                                         <Label Foreground="#E85F88" x:Name="ItemName" Style="{StaticResource MaterialDesignLabel}" FontSize="20" Content="{Binding Name}"/>
                                         <TextBlock Foreground="White" x:Name="ItemDesc" FontSize="16" Text="{Binding Description}" TextWrapping="Wrap"/>
                                         <StackPanel Orientation="Horizontal">
@@ -35,7 +44,7 @@
                                             <Label Foreground="White"  FontSize="16" Content="$"/>
                                         </StackPanel>   
                                 
-                                        <Button x:Name="AddToCartButton" Content="В корзину" Width="110" HorizontalAlignment="Left" Click="AddToCartButton_Click" />
+                                        <Button   x:Name="AddToCartButton" Content="В корзину" Width="110" HorizontalAlignment="Left" Click="AddToCartButton_Click" />
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -48,9 +57,9 @@
         <StackPanel Grid.Column="0" Orientation="Vertical">
             <Image Source="/Images/cart.png" Height="150" Margin="40"/>
             <Label x:Name="CartInfoLabel" Content="Ваша корзина сейчас пуста" Margin="50, 0, 0, 0" Foreground="Wheat" FontSize="13" FontWeight="Bold" />
-            <Label x:Name="CartAmountLabel" Content="Ваша корзина сейчас пуста" Margin="50, 0, 0, 0" Foreground="Wheat" FontSize="13" FontWeight="Bold" />
-            <Label x:Name="CartPriceLabel" Content="Ваша корзина сейчас пуста" Margin="50, 0, 0, 0" Foreground="Wheat" FontSize="13" FontWeight="Bold" />
-            <Button Content="Оплатить" Width="146" Margin="50" Style="{StaticResource MaterialDesignOutlinedButton}"/>
+            <Label x:Name="CartAmountLabel" Content="" Margin="50, 0, 0, 0" Foreground="Wheat" FontSize="13" FontWeight="Bold" />
+            <Label x:Name="CartPriceLabel" Content="" Margin="50, 0, 0, 0" Foreground="Wheat" FontSize="13" FontWeight="Bold" />
+            <Button Content="Оплатить" Width="146" Margin="50" Style="{StaticResource MaterialDesignOutlinedButton}" Click="Button_Click"/>
 
         </StackPanel>
     </Grid>
